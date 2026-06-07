@@ -17,23 +17,23 @@
             --danger: #f3565d;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
 
-        /* --- LOGIN --- */
+        /* --- PŘIHLÁŠENÍ --- */
         .login-container { background-color: var(--panel-bg); padding: 40px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); width: 100%; max-width: 400px; text-align: center; border-top: 4px solid var(--accent-color); }
         .login-container h2 { margin-bottom: 10px; }
         .login-container p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.9rem; }
         .form-group { text-align: left; margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); }
-        .form-group input, .admin-panel input, .admin-panel select { width: 100%; padding: 12px; background-color: #121824; border: 1px solid #3a4566; border-radius: 6px; color: white; font-size: 1rem; outline: none; }
+        .form-group input { width: 100%; padding: 12px; background-color: #121824; border: 1px solid #3a4566; border-radius: 6px; color: white; font-size: 1rem; outline: none; }
         .form-group input:focus { border-color: var(--accent-color); }
         .btn { width: 100%; padding: 12px; background-color: var(--accent-color); color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; }
         .btn:hover { background-color: var(--accent-hover); }
         .error-msg { color: var(--danger); font-size: 0.9rem; margin-top: 15px; display: none; }
 
-        /* --- ROZHRANÍ --- */
-        .app-container { display: none; width: 100%; max-width: 1300px; background-color: var(--panel-bg); border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); overflow: hidden; }
+        /* --- HLAVNÍ OBRAZOVKA (MENU DISPEČINKU) --- */
+        .app-container { display: none; width: 100%; max-width: 1200px; background-color: var(--panel-bg); border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); overflow: hidden; }
         .navbar { background-color: #161b2c; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a3454; }
         .brand { font-size: 1.3rem; font-weight: bold; }
         .brand span { color: var(--accent-color); }
@@ -41,30 +41,37 @@
         .logout-btn { background: none; border: 1px solid #4f5d83; color: var(--text-muted); padding: 5px 12px; border-radius: 4px; cursor: pointer; }
         .logout-btn:hover { color: white; border-color: white; }
 
-        .main-content { display: grid; grid-template-columns: 1.5fr 2.5fr; gap: 20px; padding: 25px; }
-        @media (max-width: 1024px) { .main-content { grid-template-columns: 1fr; } }
-
-        .section-title { font-size: 1.1rem; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #2a3454; display: flex; justify-content: space-between; align-items: center; }
+        .main-content { padding: 30px; }
+        .section-title { font-size: 1.2rem; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid #2a3454; font-weight: bold; }
         
-        /* Mapy */
-        .maps-grid { display: flex; flex-direction: column; gap: 12px; }
-        .map-card { background-color: #161b2c; border: 1px solid #2a3454; border-radius: 8px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; }
+        /* Karty map v menu */
+        .maps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .map-card { background-color: #161b2c; border: 1px solid #2a3454; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 15px; transition: 0.2s; }
         .map-card:hover { border-color: var(--accent-color); background-color: #1d253d; }
-        .map-details h3 { font-size: 1rem; display: flex; align-items: center; gap: 8px; }
-        .map-details p { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
-        .tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-        .tag-real { background-color: var(--success); }
-        .tag-fic { background-color: #7a1fa2; }
-        
-        .open-btn { background-color: var(--accent-color); color: white; border: none; padding: 8px 14px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
+        .map-details h3 { font-size: 1.05rem; line-height: 1.3; }
+        .map-details p { font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; }
+        .tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; display: inline-block; margin-bottom: 5px; }
+        .tag-real { background-color: var(--success); color: white; }
+        .tag-fic { background-color: #7a1fa2; color: white; }
+        .open-btn { background-color: var(--accent-color); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-weight: bold; width: 100%; text-align: center; }
         .open-btn:hover { background-color: var(--accent-hover); }
 
-        /* Sloupce panelů (3 vedle sebe v pravé části) */
-        .dashboard-panels { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
-        @media (max-width: 768px) { .dashboard-panels { grid-template-columns: 1fr; } }
+        /* --- SAMOSTATNÁ STRÁNKA MAPY (Schová menu) --- */
+        .map-page-container { display: none; width: 100%; max-width: 1300px; background-color: var(--panel-bg); border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); padding: 30px; }
+        .map-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #2a3454; padding-bottom: 20px; margin-bottom: 25px; gap: 15px; flex-wrap: wrap; }
+        .back-btn { background-color: #4f5d83; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
+        .back-btn:hover { background-color: #3a4566; }
+        .download-action-btn { background-color: var(--success); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
+        .download-action-btn:hover { background-color: #0e6b37; }
+
+        /* Tři sekce vedle sebe */
+        .panels-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        @media (max-width: 900px) { .panels-grid { grid-template-columns: 1fr; } }
         
-        .feed-box { background-color: #161b2c; border: 1px solid #2a3454; border-radius: 8px; padding: 15px; min-height: 350px; content-visibility: auto; }
-        .feed-item { padding-left: 10px; margin-bottom: 15px; position: relative; border-left: 3px solid #ccc; }
+        .panel-box { background-color: #161b2c; border: 1px solid #2a3454; border-radius: 8px; padding: 20px; min-height: 300px; }
+        .panel-box h3 { font-size: 1rem; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #2a3454; }
+        
+        .feed-item { padding-left: 12px; margin-bottom: 15px; position: relative; border-left: 3px solid #ccc; }
         .feed-item h4 { font-size: 0.9rem; margin-bottom: 3px; display: flex; justify-content: space-between; align-items: center; }
         .feed-item p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
         .feed-date { font-size: 0.7rem; font-weight: bold; display: block; margin-bottom: 2px; }
@@ -75,26 +82,22 @@
         .type-oznameni .feed-date { color: var(--accent-color); }
         .type-vyluky .feed-date { color: var(--danger); }
         .type-aktuality .feed-date { color: var(--warning); }
-
         .delete-btn { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 0.85rem; }
 
-        /* Detail Mapy */
-        .map-detail-header { background-color: #161b2c; border: 1px solid #2a3454; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .back-btn { background-color: #4f5d83; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-right: 10px; }
-
-        /* Admin Panel */
-        .admin-panel { grid-column: span 2; background-color: #161b2c; border: 1px solid #3a4566; border-radius: 8px; padding: 20px; margin-top: 5px; }
-        @media (max-width: 1024px) { .admin-panel { grid-column: span 1; } }
-        .admin-grid { display: grid; grid-template-columns: 1fr 120px 1.5fr 2fr auto; gap: 15px; align-items: end; }
-        @media (max-width: 768px) { .admin-grid { grid-template-columns: 1fr; } }
+        /* Editor příspěvků pro danou mapu */
+        .editor-section { background-color: #161b2c; border: 1px solid #3a4566; border-radius: 8px; padding: 20px; }
+        .editor-title { font-size: 0.95rem; font-weight: bold; margin-bottom: 15px; color: var(--accent-color); }
+        .editor-grid { display: grid; grid-template-columns: 150px 120px 1fr 1.5fr auto; gap: 15px; align-items: end; }
+        @media (max-width: 768px) { .editor-grid { grid-template-columns: 1fr; } }
+        .editor-grid select, .editor-grid input { width: 100%; padding: 10px; background-color: #121824; border: 1px solid #3a4566; border-radius: 6px; color: white; outline: none; }
     </style>
 </head>
 <body>
 
-    <!-- PŘIHLÁŠENÍ -->
+    <!-- OBRAZOVKA 1: PŘIHLÁŠENÍ -->
     <div class="login-container" id="loginForm">
         <h2>Palubní Terminál</h2>
-        <p>Pro přístup zadejte své údaje</p>
+        <p>Zadejte přihlašovací údaje řidiče</p>
         <div class="form-group">
             <label>Řidič</label>
             <input type="text" id="username" placeholder="Petr Šmatlák" autocomplete="off">
@@ -104,10 +107,10 @@
             <input type="password" id="pin" placeholder="•••••">
         </div>
         <button class="btn" onclick="validateLogin()">Přihlásit se</button>
-        <div class="error-msg" id="loginError">Nesprávné údaje.</div>
+        <div class="error-msg" id="loginError">Nesprávné jméno nebo PIN.</div>
     </div>
 
-    <!-- HLAVNÍ ROZHRANÍ -->
+    <!-- OBRAZOVKA 2: HLAVNÍ MENU (DISPEČINK MAP) -->
     <div class="app-container" id="appInterface">
         <nav class="navbar">
             <div class="brand">BUS<span>SETUP</span> Dispečink</div>
@@ -118,184 +121,214 @@
         </nav>
 
         <div class="main-content">
+            <div class="section-title">Vyberte autobusovou linku / mapu:</div>
             
-            <!-- LEVÝ SLOUPEC: SEZNAM MAP -->
-            <div>
-                <div class="section-title">Navigace / Výběr mapy</div>
-                <div class="maps-grid" id="mapsList">
-                    <!-- Generováno JavaScriptem pro detekci kliknutí na celou kartu -->
+            <div class="maps-grid">
+                <!-- Mapy natvrdo rozepsané v HTML -->
+                <div class="map-card">
+                    <div class="map-details">
+                        <span class="tag tag-real">Reálná</span>
+                        <h3>Opava a okolí 15km včetně DPO</h3>
+                        <p>Verze: 2.1 | Velikost: 420 MB</p>
+                    </div>
+                    <button class="open-btn" onclick="openMapPage('opava15', 'Opava a okolí 15km včetně DPO')">Otevřít</button>
+                </div>
+
+                <div class="map-card">
+                    <div class="map-details">
+                        <span class="tag tag-real">Reálná</span>
+                        <h3>Opava</h3>
+                        <p>Verze: 1.8 | Velikost: 180 MB</p>
+                    </div>
+                    <button class="open-btn" onclick="openMapPage('opava', 'Opava')">Otevřít</button>
+                </div>
+
+                <div class="map-card">
+                    <div class="map-details">
+                        <span class="tag tag-real">Reálná</span>
+                        <h3>Ostrava</h3>
+                        <p>Verze: 3.5 | Velikost: 1.2 GB</p>
+                    </div>
+                    <button class="open-btn" onclick="openMapPage('ostrava', 'Ostrava')">Otevřít</button>
+                </div>
+
+                <div class="map-card">
+                    <div class="map-details">
+                        <span class="tag tag-real">Reálná</span>
+                        <h3>Ostrava - Hlučín</h3>
+                        <p>Verze: 1.2 | Velikost: 310 MB</p>
+                    </div>
+                    <button class="open-btn" onclick="openMapPage('ostravahlucin', 'Ostrava - Hlučín')">Otevřít</button>
+                </div>
+
+                <div class="map-card">
+                    <div class="map-details">
+                        <span class="tag tag-real">Reálná</span>
+                        <h3>3ČSAD</h3>
+                        <p>Verze: 4.0 | Velikost: 850 MB</p>
+                    </div>
+                    <button class="open-btn" onclick="openMapPage('csad', '3ČSAD')">Otevřít</button>
+                </div>
+
+                <div class="map-card">
+                    <div class="map-details">
+                        <span class="tag tag-fic">Fiktivní</span>
+                        <h3>Rpaha</h3>
+                        <p>Verze: 1.0 Alpha | Velikost: 520 MB</p>
+                    </div>
+                    <button class="open-btn" onclick="openMapPage('rpaha', 'Rpaha')">Otevřít</button>
+                </div>
+
+                <div class="map-card">
+                    <div class="map-details">
+                        <span class="tag tag-fic">Fiktivní</span>
+                        <h3>Doznov nad Opozenské králové</h3>
+                        <p>Verze: 2.3 | Velikost: 640 MB</p>
+                    </div>
+                    <button class="open-btn" onclick="openMapPage('doznov', 'Doznov nad Opozenské králové')">Otevřít</button>
+                </div>
+
+                <div class="map-card">
+                    <div class="map-details">
+                        <span class="tag tag-fic">Fiktivní</span>
+                        <h3>Braník a okolí</h3>
+                        <p>Verze: 1.1 | Velikost: 290 MB</p>
+                    </div>
+                    <button class="open-btn" onclick="openMapPage('branik', 'Braník a okolí')">Otevřít</button>
                 </div>
             </div>
-
-            <!-- PRAVÝ SLOUPEC: DYNAMICKÝ OBSAH (Globální nebo Detail Mapy) -->
-            <div>
-                <!-- OBSAH OBSAHUJE INSTRUKCE PRO PŘEPÍNÁNÍ -->
-                <div id="dynamicContentZone">
-                    <!-- Zde se střídá Globální přehled a Detail mapy -->
-                </div>
-            </div>
-
-            <!-- ADMIN PANEL -->
-            <div class="admin-panel">
-                <div style="font-size: 1rem; font-weight: bold; margin-bottom: 15px; color: var(--accent-color);" id="adminTitle">✍️ Přidat záznam na globální nástěnku</div>
-                <div class="admin-grid">
-                    <div>
-                        <label style="font-size: 0.8rem; color: var(--text-muted);">Sekce</label>
-                        <select id="postType">
-                            <option value="oznameni">Oznámení</option>
-                            <option value="vyluky">Výluka</option>
-                            <option value="aktuality">Aktualita</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label style="font-size: 0.8rem; color: var(--text-muted);">Časový štítek</label>
-                        <input type="text" id="postDateTag" placeholder="DNES / VČERA / Datum">
-                    </div>
-                    <div>
-                        <label style="font-size: 0.8rem; color: var(--text-muted);">Titulek</label>
-                        <input type="text" id="postTitle" placeholder="Název události...">
-                    </div>
-                    <div>
-                        <label style="font-size: 0.8rem; color: var(--text-muted);">Obsah zprávy</label>
-                        <input type="text" id="postText" placeholder="Podrobnosti...">
-                    </div>
-                    <button class="btn" onclick="addPost()" style="padding: 12px 20px;">Publikovat</button>
-                </div>
-            </div>
-
         </div>
     </div>
 
+    <!-- OBRAZOVKA 3: SAMOSTATNÁ STRÁNKA MAPY (Bez hlavního menu) -->
+    <div class="map-page-container" id="mapPage">
+        <div class="map-header">
+            <div>
+                <button class="back-btn" onclick="closeMapPage()">⬅ Zpět do menu</button>
+                <h1 id="mapPageTitle" style="display:inline-block; margin-left:15px; font-size:1.6rem; vertical-align:middle;">Název mapy</h1>
+            </div>
+            <button class="download-action-btn" id="mapDownloadBtn">⚡ Stáhnout aktualizaci mapy</button>
+        </div>
+
+        <!-- TŘI SEKCE PRO DANOU MAPU -->
+        <div class="panels-grid">
+            <div class="panel-box">
+                <h3 style="color: var(--accent-color);">📢 Oznámení mapy</h3>
+                <div id="box-oznameni"></div>
+            </div>
+            <div class="panel-box">
+                <h3 style="color: var(--danger);">⚠️ Výluky mapy</h3>
+                <div id="box-vyluky"></div>
+            </div>
+            <div class="panel-box">
+                <h3 style="color: var(--warning);">📰 Aktuality mapy</h3>
+                <div id="box-aktuality"></div>
+            </div>
+        </div>
+
+        <!-- EDITOR PRO TUTO MAPU -->
+        <div class="editor-section">
+            <div class="editor-title" id="editorTargetTitle">✍️ Zapsat hlášení pro tuto mapu</div>
+            <div class="editor-grid">
+                <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:5px;">Typ záznamu</label>
+                    <select id="postType">
+                        <option value="oznameni">Oznámení</option>
+                        <option value="vyluky">Výluka</option>
+                        <option value="aktuality">Aktualita</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:5px;">Štítek (Čas)</label>
+                    <input type="text" id="postDate" placeholder="DNES / Datum">
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:5px;">Název / Titulek</label>
+                    <input type="text" id="postTitle" placeholder="Předmět zprávy...">
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:5px;">Obsah zprávy</label>
+                    <input type="text" id="postText" placeholder="Zde rozepište detaily...">
+                </div>
+                <button class="btn" onclick="addPost()" style="padding: 10px 20px;">Publikovat</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT PRO 100% FUNKČNOST -->
     <script>
-        // Definice všech map
-        const mapsData = [
-            { id: 'opava15', name: 'Opava a okolí 15km včetně DPO', type: 'real', desc: 'v2.1 | 420 MB' },
-            { id: 'opava', name: 'Opava', type: 'real', desc: 'v1.8 | 180 MB' },
-            { id: 'ostrava', name: 'Ostrava', type: 'real', desc: 'v3.5 | 1.2 GB' },
-            { id: 'ostravahlucin', name: 'Ostrava - Hlučín', type: 'real', desc: 'v1.2 | 310 MB' },
-            { id: 'csad', name: '3ČSAD', type: 'real', desc: 'v4.0 | 850 MB' },
-            { id: 'rpaha', name: 'Rpaha', type: 'fic', desc: 'v1.0 | 520 MB' },
-            { id: 'doznov', name: 'Doznov nad Opozenské králové', type: 'fic', desc: 'v2.3 | 640 MB' },
-            { id: 'branik', name: 'Braník a okolí', type: 'fic', desc: 'v1.1 | 290 MB' }
+        // Ukázková data při prvním spuštění
+        const initialData = [
+            { id: 1, mapKey: 'opava15', type: 'vyluky', title: 'Uzavírka Kateřinky', text: 'Linky DPO odkloněny přes zastávku Zimní stadion.', date: 'DNES' },
+            { id: 2, mapKey: 'opava15', type: 'oznameni', title: 'Nové JŘ nahrány', text: 'Zkontrolujte si platnost palubních dat v IBISu.', date: '07. 06.' },
+            { id: 3, mapKey: 'rpaha', type: 'aktuality', title: 'Verze 1.0 stabilní', text: 'Mapa úspěšně otestována v OMSI 2 bez propadů FPS.', date: 'VČERA' }
         ];
 
-        // Výchozí texty na nástěnkách (ukázka)
-        const defaultPosts = [
-            { id: 1, mapId: 'global', type: 'oznameni', title: 'Vítejte v dispečinku', text: 'Klikněte na jakoukoliv mapu vlevo pro zobrazení jejích specifických výluk a aktualit.', date: 'INFO' },
-            { id: 2, mapId: 'opava15', type: 'vyluky', title: 'Uzavírka Kateřinky', text: 'Linky DPO jezdí odklonem přes zastávku Zimní stadion.', date: 'DNES' },
-            { id: 3, mapId: 'rpaha', type: 'aktuality', title: 'Vydána verze Beta', text: 'Opraveny propady textur u hlavního nádraží.', date: 'VČERA' }
-        ];
+        let database = JSON.parse(localStorage.getItem('busSetupDatabase')) || initialData;
+        let activeMapKey = '';
 
-        let posts = JSON.parse(localStorage.getItem('busDashboardPosts')) || defaultPosts;
-        let currentMapScope = 'global'; // 'global' nebo ID konkrétní mapy
-
+        // Login
         function validateLogin() {
-            if (document.getElementById('username').value.trim() === "Petr Šmatlák" && document.getElementById('pin').value.trim() === "10345") {
+            const u = document.getElementById('username').value.trim();
+            const p = document.getElementById('pin').value.trim();
+            if (u === "Petr Šmatlák" && p === "10345") {
                 document.getElementById('loginForm').style.display = 'none';
                 document.getElementById('appInterface').style.display = 'block';
-                initApp();
             } else {
                 document.getElementById('loginError').style.display = 'block';
             }
         }
 
+        // Odhlášení
         function logout() {
             document.getElementById('appInterface').style.display = 'none';
             document.getElementById('loginForm').style.display = 'block';
             document.getElementById('pin').value = '';
         }
 
-        function initApp() {
-            renderMapsList();
-            viewGlobalDashboard();
-        }
-
-        // Vykreslení seznamu map vlevo
-        function renderMapsList() {
-            const listContainer = document.getElementById('mapsList');
-            listContainer.innerHTML = '';
+        // KLIKNUTÍ NA OTEVŘÍT -> SCHOVÁ MENU, OTEVŘE STRÁNKU MAPY
+        function openMapPage(key, fullName) {
+            activeMapKey = key;
             
-            mapsData.forEach(map => {
-                const card = document.createElement('div');
-                card.className = `map-card ${currentMapScope === map.id ? 'active-card' : ''}`;
-                if(currentMapScope === map.id) card.style.borderColor = 'var(--accent-color)';
-                
-                card.onclick = () => openMapDetail(map.id);
-                
-                card.innerHTML = `
-                    <div class="map-details">
-                        <h3>${map.name.split(' ')[0]} <span class="tag tag-${map.type}">${map.type === 'real' ? 'Reálná' : 'Fiktivní'}</span></h3>
-                        <p>${map.desc}</p>
-                    </div>
-                    <button class="open-btn">Otevřít</button>
-                `;
-                listContainer.appendChild(card);
-            });
-        }
-
-        // Zobrazení HLAVNÍ GLOBÁLNÍ nástěnky
-        function viewGlobalDashboard() {
-            currentMapScope = 'global';
-            document.getElementById('adminTitle').innerText = "✍️ Přidat záznam na GLOBÁLNÍ nástěnku";
+            // Schovat hlavní menu dispečinku
+            document.getElementById('appInterface').style.display = 'none';
             
-            const zone = document.getElementById('dynamicContentZone');
-            zone.innerHTML = `
-                <div class="section-title">Globální informační panely (Všechny mapy)</div>
-                <div class="dashboard-panels">
-                    <div><div style="color:var(--accent-color); font-weight:bold; margin-bottom:10px;">📢 OZNÁMENÍ</div><div class="feed-box" id="box-oznameni"></div></div>
-                    <div><div style="color:var(--danger); font-weight:bold; margin-bottom:10px;">⚠️ VÝLUKY</div><div class="feed-box" id="box-vyluky"></div></div>
-                    <div><div style="color:var(--warning); font-weight:bold; margin-bottom:10px;">📰 AKTUALITY</div><div class="feed-box" id="box-aktuality"></div></div>
-                </div>
-            `;
-            renderPosts();
-            renderMapsList();
+            // Zobrazit čistou podstránku mapy
+            document.getElementById('mapPage').style.display = 'block';
+            
+            // Nastavit texty
+            document.getElementById('mapPageTitle').innerText = fullName;
+            document.getElementById('editorTargetTitle').innerText = `✍️ Zapsat hlášení přímo pro mapu: ${fullName}`;
+            
+            // Nastavit akci stahování tlačítka
+            document.getElementById('mapDownloadBtn').onclick = function() {
+                alert(`Spouštím stahování aktualizace pro: ${fullName}`);
+            };
+
+            renderMapFeeds();
         }
 
-        // Zobrazení DETAILU MAPY po kliknutí
-        function openMapDetail(mapId) {
-            currentMapScope = mapId;
-            const mapObj = mapsData.find(m => m.id === mapId);
-            document.getElementById('adminTitle').innerText = `✍️ Přidat záznam pro mapu: ${mapObj.name.split(' ')[0]}`;
-
-            const zone = document.getElementById('dynamicContentZone');
-            zone.innerHTML = `
-                <div class="map-detail-header">
-                    <div>
-                        <button class="back-btn" onclick="viewGlobalDashboard()">⬅ Zpět</button>
-                        <span style="font-size: 1.3rem; font-weight: bold;">${mapObj.name}</span>
-                    </div>
-                    <button class="open-btn" style="background-color: var(--success);" onclick="alert('Stahování mapy: ${mapObj.name}')">⚡ Stáhnout aktualizaci</button>
-                </div>
-                
-                <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">
-                    Zobrazujete hlášení, výluky a aktuality svázané pouze s touto mapou.
-                </div>
-
-                <div class="dashboard-panels">
-                    <div><div style="color:var(--accent-color); font-weight:bold; margin-bottom:10px;">📢 OZNÁMENÍ MAPY</div><div class="feed-box" id="box-oznameni"></div></div>
-                    <div><div style="color:var(--danger); font-weight:bold; margin-bottom:10px;">⚠️ VÝLUKY MAPY</div><div class="feed-box" id="box-vyluky"></div></div>
-                    <div><div style="color:var(--warning); font-weight:bold; margin-bottom:10px;">📰 AKTUALITY MAPY</div><div class="feed-box" id="box-aktuality"></div></div>
-                </div>
-            `;
-            renderPosts();
-            renderMapsList();
+        // KLIKNUTÍ NA ZPĚT -> SCHOVÁ MAPU, UKÁŽE HLAVNÍ MENU
+        function closeMapPage() {
+            document.getElementById('mapPage').style.display = 'none';
+            document.getElementById('appInterface').style.display = 'block';
+            activeMapKey = '';
         }
 
-        // Vykreslení příspěvků na základě aktuálního filtru (global vs konkrétní mapa)
-        function renderPosts() {
+        // Vykreslení příspěvků pro otevřenou mapu
+        function renderMapFeeds() {
             const bOznameni = document.getElementById('box-oznameni');
             const bVyluky = document.getElementById('box-vyluky');
             const bAktuality = document.getElementById('box-aktuality');
-            
-            if(!bOznameni) return;
 
             bOznameni.innerHTML = '';
             bVyluky.innerHTML = '';
             bAktuality.innerHTML = '';
 
-            const filtered = posts.filter(p => p.mapId === currentMapScope);
+            // Vyfiltrovat příspěvky patřící pouze k aktivní mapě
+            const currentMapPosts = database.filter(item => item.mapKey === activeMapKey);
 
-            filtered.forEach(post => {
+            currentMapPosts.forEach(post => {
                 const item = document.createElement('div');
                 item.className = `feed-item type-${post.type}`;
                 item.innerHTML = `
@@ -303,53 +336,54 @@
                     <h4>${post.title} <button class="delete-btn" onclick="deletePost(${post.id})">❌</button></h4>
                     <p>${post.text}</p>
                 `;
-                
+
                 if (post.type === 'oznameni') bOznameni.appendChild(item);
                 if (post.type === 'vyluky') bVyluky.appendChild(item);
                 if (post.type === 'aktuality') bAktuality.appendChild(item);
             });
         }
 
-        // Přidání příspěvku
+        // Přidání zprávy do aktuální mapy
         function addPost() {
             const type = document.getElementById('postType').value;
             const title = document.getElementById('postTitle').value.trim();
             const text = document.getElementById('postText').value.trim();
-            let dateTag = document.getElementById('postDateTag').value.trim();
+            let date = document.getElementById('postDate').value.trim();
 
             if (!title || !text) {
-                alert('Prosím vyplňte titulek a obsah zprávy.');
+                alert('Musíte vyplnit titulek i obsah zprávy!');
                 return;
             }
 
-            if (!dateTag) {
+            if (!date) {
                 const now = new Date();
-                dateTag = `${now.getDate()}. ${now.getMonth() + 1}.`;
+                date = `${now.getDate()}. ${now.getMonth() + 1}.`;
             }
 
-            const newPost = {
+            const newRecord = {
                 id: Date.now(),
-                mapId: currentMapScope, // Uloží se buď pod 'global' nebo pod id mapy (např. 'opava15')
+                mapKey: activeMapKey, // Svázáno s touto konkrétní mapou
                 type: type,
                 title: title,
                 text: text,
-                date: dateTag.toUpperCase()
+                date: date.toUpperCase()
             };
 
-            posts.unshift(newPost);
-            localStorage.setItem('busDashboardPosts', JSON.stringify(posts));
-            renderPosts();
+            database.unshift(newRecord);
+            localStorage.setItem('busSetupDatabase', JSON.stringify(database));
+            renderMapFeeds();
 
+            // Vyčistit pole
             document.getElementById('postTitle').value = '';
             document.getElementById('postText').value = '';
-            document.getElementById('postDateTag').value = '';
+            document.getElementById('postDate').value = '';
         }
 
-        // Smazání příspěvku
+        // Smazání zprávy
         function deletePost(id) {
-            posts = posts.filter(p => p.id !== id);
-            localStorage.setItem('busDashboardPosts', JSON.stringify(posts));
-            renderPosts();
+            database = database.filter(item => item.id !== id);
+            localStorage.setItem('busSetupDatabase', JSON.stringify(database));
+            renderMapFeeds();
         }
     </script>
 </body>
