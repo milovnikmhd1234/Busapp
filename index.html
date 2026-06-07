@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusSetup - Správa aktualizací map</title>
+    <style>
+        :root {
+            --bg-color: #121824;
+            --panel-bg: #1e2640;
+            --accent-color: #0078d4;
+            --accent-hover: #005a9e;
+            --text-color: #ffffff;
+            --text-muted: #8a99ad;
+            --success: #107c41;
+            --warning: #ffb900;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- PŘIHLAŠOVACÍ OBRAZOVKA --- */
+        .login-container {
+            background-color: var(--panel-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .login-container h2 {
+            margin-bottom: 10px;
+        }
+
+        .login-container p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background-color: #121824;
+            border: 1px solid #3a4566;
+            border-radius: 6px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .error-msg {
+            color: #f3565d;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* --- HLAVNÍ SEKCE A STRUKTURA --- */
+        .app-container {
+            display: none; /* Skryté před přihlášením */
+            width: 100%;
+            max-width: 1200px;
+            background-color: var(--panel-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        /* Navigační Menu */
+        .navbar {
+            background-color: #161b2c;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a3454;
+        }
+
+        .brand {
+            font-size: 1.3rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .brand span {
+            color: var(--accent-color);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.95rem;
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid #4f5d83;
+            color: var(--text-muted);
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .logout-btn:hover {
+            color: white;
+            border-color: white;
+        }
+
+        /* Hlavní Layout */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            padding: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Nadpisy sekcí */
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #2a3454;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Sekce MAPY */
+        .maps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .map-card {
+            background-color: #161b2c;
+            border: 1px solid #2a3454;
+            border-radius: 8px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.2s;
+        }
+
+        .map-card:hover {
+            border-color: var(--accent-color);
+            background-color: #1a2035;
+        }
+
+        .map-details h3 {
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+
+        .map-details .tag {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: 5px;
+            display: inline-block;
+        }
+
+        .tag-real { background-color: var(--success); color: white; }
+        .tag-fic { background-color: #7a1fa2; color: white; }
+
+        .map-details p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .download-btn {
+            background-color: #2a3454;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+
+        .download-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Sekce OZNÁMENÍ */
+        .notice-board {
+            background-color: #161b2c;
+            border: 1px solid #2a3454;
+            border-radius: 8px;
+            padding: 20px;
+            height: fit-content;
+        }
+
+        .notice-item {
+            border-left: 3px solid var(--warning);
+            padding-left: 12px;
+            margin-bottom: 15px;
+        }
+
+        .notice-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .notice-item h4 {
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+        }
+
+        .notice-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .notice-date {
+            font-size: 0.75rem;
+            color: var(--warning);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container" id="loginForm">
+        <h2>Palubní Terminál</h2>
+        <p>Pro přístup k databázi map se autorizujte</p>
+        
+        <div class="form-group">
+            <label for="username">Řidič (Jméno a Příjmení)</label>
+            <input type="text" id="username" placeholder="Např. Petr Šmatlák" autocomplete="off">
+        </div>
+        
+        <div class="form-group">
+            <label for="pin">Služební PIN</label>
+            <input type="password" id="pin" placeholder="•••••">
+        </div>
+        
+        <button class="btn" onclick="validateLogin()">Přihlásit se</button>
+        <div class="error-msg" id="loginError">Neplatné jméno nebo PIN. Zkuste to znovu.</div>
+    </div>
+
+    <div class="app-container" id="appInterface">
+        <nav class="navbar">
+            <div class="brand">BUS<span>SETUP</span> v2.6</div>
+            <div class="user-info">
+                <span>Řidič: <strong id="displayUser">Petr Šmatlák</strong></span>
+                <button class="logout-btn" onclick="logout()">Odhlásit</button>
+            </div>
+        </nav>
+
+        <div class="main-content">
+            
+            <div>
+                <div class="section-title">
+                    <span>Dostupné Aktualizace Map</span>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Celkem: 8</span>
+                </div>
+                
+                <div class="maps-grid">
+                    <div class="map-card">
+                        <div class="map-details">
+                            <h3>Opava a okolí 15km <span class="tag tag-real">Reálná (včetně DPO)</span></h3>
+                            <p>Aktualizováno: Dnes | Verze: 2.1 | Velikost: 420 MB</p>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('Opava a okolí 15km')">Stáhnout</button>
+                    </div>
+
+                    <div class="map-card">
+                        <div class="map-details">
+                            <h3>Opava <span class="tag tag-real">Reálná</span></h3>
+                            <p>Aktualizováno: Před týdnem | Verze: 1.8 | Velikost: 180 MB</p>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('Opava')">Stáhnout</button>
+                    </div>
+
+                    <div class="map-card">
+                        <div class="map-details">
+                            <h3>Ostrava <span class="tag tag-real">Reálná</span></h3>
+                            <p>Aktualizováno: 14 dní zpět | Verze: 3.5 | Velikost: 1.2 GB</p>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('Ostrava')">Stáhnout</button>
+                    </div>
+
+                    <div class="map-card">
+                        <div class="map-details">
+                            <h3>Ostrava - Hlučín <span class="tag tag-real">Reálná</span></h3>
+                            <p>Aktualizováno: Před měsícem | Verze: 1.2 | Velikost: 310 MB</p>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('Ostrava - Hlučín')">Stáhnout</button>
+                    </div>
+
+                    <div class="map-card">
+                        <div class="map-details">
+                            <h3>3ČSAD <span class="tag tag-real">Reálná</span></h3>
+                            <p>Aktualizováno: Stabilní verze | Verze: 4.0 | Velikost: 850 MB</p>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('3ČSAD')">Stáhnout</button>
+                    </div>
+
+                    <div class="map-card">
+                        <div class="map-details">
+                            <h3>Rpaha <span class="tag tag-fic">Fiktivní</span></h3>
+                            <p>Aktualizováno: Novinka | Verze: 1.0 Alpha | Velikost: 520 MB</p>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('Rpaha')">Stáhnout</button>
+                    </div>
+
+                    <div class="map-card">
+                        <div class="map-details">
+                            <h3>Doznov nad Opozenské králové <span class="tag tag-fic">Fiktivní</span></h3>
+                            <p>Aktualizováno: Včera | Verze: 2.3 | Velikost: 640 MB</p>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('Doznov nad Opozenské králové')">Stáhnout</button>
+                    </div>
+
+                    <div class="map-card">
+                        <div class="map-details">
+                            <h3>Braník a okolí <span class="tag tag-fic">Fiktivní</span></h3>
+                            <p>Aktualizováno: Před 3 dny | Verze: 1.1 | Velikost: 290 MB</p>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('Braník a okolí')">Stáhnout</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <div class="section-title">Oznámení dispečinku</div>
+                <div class="notice-board">
+                    
+                    <div class="notice-item">
+                        <span class="notice-date">DNES</span>
+                        <h4>Výluka v oblasti Opava-Kateřinky</h4>
+                        <p>Z důvodu opravy silnice stahujte nejnovější fix pro mapu Opava 15km. Jízdní řády linek DPO byly dočasně upraveny.</p>
+                    </div>
+
+                    <div class="notice-item" style="border-left-color: var(--accent-color);">
+                        <span class="notice-date">VČERA</span>
+                        <h4>Nová fiktivní mapa Rpaha v1.0</h4>
+                        <p>Do katalogu byla přidána kompletně nová fiktivní mapa Rpaha. Ohlašte případné chyby v texturách na fóru.</p>
+                    </div>
+
+                    <div class="notice-item">
+                        <span class="notice-date">02. 06. 2026</span>
+                        <h4>Údržba databáze map</h4>
+                        <p>Všechny mapy 3ČSAD a Ostrava byly optimalizovány pro plynulejší načítání objektů v simulátoru.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Funkce pro ověření přihlášení
+        function validateLogin() {
+            const userIn = document.getElementById('username').value.trim();
+            const pinIn = document.getElementById('pin').value.trim();
+            const errorMsg = document.getElementById('loginError');
+
+            // Podmínka přesně pro tebe: Petr Šmatlák a pin 10345
+            if (userIn === "Petr Šmatlák" && pinIn === "10345") {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('appInterface').style.display = 'block';
+                document.getElementById('displayUser').innerText = userIn;
+                errorMsg.style.display = 'none';
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        // Odhlášení ze systému
+        function logout() {
+            document.getElementById('appInterface').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('pin').value = ''; // vyčistit pin
+        }
+
+        // Simulace stažení mapy
+        function downloadMap(mapName) {
+            alert("Spouštím stahování/aktualizaci mapy: " + mapName + "\nSoubor bude aplikován do tvého setupu.");
+        }
+    </script>
+</body>
+</html>
